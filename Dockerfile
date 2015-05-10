@@ -11,7 +11,12 @@ RUN yum -y install \
 RUN  useradd user
 
 COPY keys/auth* /home/user/.ssh/
-COPY keys/id_server* /home/user/.ssh/
+COPY keys/id_rsa /home/user/.ssh/
+COPY keys/id_rsa.pub /home/user/.ssh/
+
+RUN sed \
+        -e 's/^#\?AllowTcpForwarding .*/AllowTcpForwarding remote/' \
+        -i /etc/ssh/sshd_config
 
 COPY entrypoint.sh /entrypoint.sh
 COPY client.sh /client.sh
