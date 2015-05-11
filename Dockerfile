@@ -5,14 +5,19 @@ EXPOSE 22
 
 RUN yum -y install \
 	openssh-server \
+	openssh-clients \
+	openssh-clients \
+	net-tools \
+	telent \
+	nmap-ncat \
 	passwd \
 	; yum clean all
 
-RUN  useradd user
+#RUN  useradd user
 
-COPY keys/auth* /home/user/.ssh/
-COPY keys/id_rsa /home/user/.ssh/
-COPY keys/id_rsa.pub /home/user/.ssh/
+#COPY keys/auth* /home/user/.ssh/
+#COPY keys/id_rsa /home/user/.ssh/
+#COPY keys/id_rsa.pub /home/user/.ssh/
 
 RUN sed \
         -e 's/^#\?AllowTcpForwarding .*/AllowTcpForwarding remote/' \
